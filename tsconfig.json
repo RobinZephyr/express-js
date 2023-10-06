@@ -4,6 +4,8 @@
       "target": "ESNext",
       "esModuleInterop": true,
       "skipLibCheck": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
       "forceConsistentCasingInFileNames": true
     },
     "include": ["src/**/*.ts"]

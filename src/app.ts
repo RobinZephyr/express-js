@@ -1,30 +1,19 @@
-import express, {Request , Response} from 'express';
-
-const app = express ();
-app.use(express.json());
-
-//Routes 
-    app.post("/api/greet", (req:Request , res:Response)=>{
-        return res.json({name:"HELLOW"});
-    });
+import "reflect-metadata"
+import {AppDataSource} from "../data-source";
+import  express from"express";
+import bodyParser from "body-parser";
+import  cors from "cors";
+import postRoutes from "./routes/postRoutes"
 
 
-    app.route("/api/name")
-    .get((req:Request, res:Response)=>{
-        return res.json({
-            desc: "this is api get"
-        });
-    })
+AppDataSource.initialize()
+.then(async(connection)=>{
+    const app = express();
+    app.use(cors());
+    app.use(bodyParser.json());
+    app.use("/api",postRoutes);
+    app.listen(8080,()=>console.log("App is running at Port 8080"));
 
-    .post((req:Request, res:Response)=>{
-        return res.json({
-            desc: "this is api post"
-        });
-    })
+})
 
-
-
-
-app.listen(3000, () => {
-    console.log("App is Running at http://localhost:3000");
-});
+.catch((error)=> console.log(error));
